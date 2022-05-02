@@ -1,3 +1,5 @@
+package questionsAndAnswers;
+
 public interface Sequence {
     String A = "a";
     String B = "b";
