@@ -26,6 +26,10 @@ public class Question {
         this.score = score;
     }
 
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
+    }
+
     public Answer getCorrectAnswer() {
         return this.answers.stream().filter(Answer::isTrue).findFirst().get();
     }

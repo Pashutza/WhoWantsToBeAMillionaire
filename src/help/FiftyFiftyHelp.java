@@ -3,6 +3,7 @@ package help;
 import questionsAndAnswers.Question;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class FiftyFiftyHelp extends HelpOption{
@@ -26,10 +27,7 @@ public class FiftyFiftyHelp extends HelpOption{
 
         helpAnswers.add(correctAnswer);
         helpAnswers.add(wrongAnswer);
+        Collections.sort(helpAnswers);
         return helpAnswers;
     }
-
-
-
-
 }
