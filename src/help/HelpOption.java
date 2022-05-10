@@ -5,9 +5,9 @@ import questionsAndAnswers.Question;
 import java.util.List;
 import java.util.Random;
 
-public abstract class HelpOption implements HelpSequence {
+public abstract class HelpOption implements HelpSequence, Invokable{
     boolean isUsed = false;
-    public abstract List<HelpAnswer> getHelpAnswers(Question question);
+
     String name;
     String sequence;
     public abstract void showAnswers(List<HelpAnswer> helpAnswers);

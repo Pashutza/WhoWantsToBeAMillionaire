@@ -34,7 +34,7 @@ public class Main implements Sequence {
 
             writeMessage(">> " + question.getQuestion() + ":");
 
-            for (Answer answer : question.getAnswers()){
+            for (Answer answer : question.getAnswers()) {
                 writeMessage(" " + answer.getSequence() + ": " + answer.getAnswer());
             }
 
@@ -48,10 +48,10 @@ public class Main implements Sequence {
             String answerSequence = getYourAnswerOption();
             //TODO valideaza input-ul
 
-            if(isHelp(answerSequence, helpOptions)){
+            if (isHelp(answerSequence, helpOptions)) {
                 HelpOption helpOption = getHelpOption(answerSequence, helpOptions);
                 helpOption.setUsed(true);
-                List<HelpAnswer> helpAnswers =helpOption.getHelpAnswers(question);
+                List<HelpAnswer> helpAnswers = helpOption.getHelpAnswers(question);
                 helpOption.showAnswers(helpAnswers);
 
                 answerSequence = getYourAnswerOption();
@@ -65,7 +65,8 @@ public class Main implements Sequence {
             } else {
                 writeMessage("Raspuns gresit! Scorul acumulat: " + score);
             }
-        }System.out.println("The game is over!");
+        }
+        System.out.println("The game is over!");
     }
 
     private static String getYourAnswerOption() {
