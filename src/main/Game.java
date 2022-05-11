@@ -16,7 +16,7 @@ public class Game {
     public static void start() {
         int level = 1;
         int maxLevel = 15;
-        boolean toNext = true;
+        boolean isCorrect = true;
         int score = 0;
 
         HelpOption fiftyFifty = new FiftyFiftyHelp();
@@ -25,13 +25,13 @@ public class Game {
         List<HelpOption> helpOptions = Arrays.asList(fiftyFifty, audience, phone);
 
 
-        while (maxLevel >= level && toNext) {
+        while (maxLevel >= level && isCorrect) {
             System.out.println();
             writeMessage("* Nivelul " + level);
 
             Question question = getQuestionByLevel(level).get();
 
-            writeMessage(">> " + question.getQuestion() + ":");
+            writeMessage(">> " + question.getQuestion());
 
             for (Answer answer : question.getAnswers()) {
                 writeMessage(" " + answer.getSequence() + ": " + answer.getAnswer());
@@ -48,18 +48,18 @@ public class Game {
                 isInvalidSequence = false;
                 String answerSequence = getYourAnswerOption();
 
-                if (isHelp(answerSequence, helpOptions)) {
+                if (isEnteredHelpOption(answerSequence, helpOptions)) {
                     HelpOption helpOption = getHelpOption(answerSequence, helpOptions);
                     helpOption.setUsed(true);
                     List<HelpAnswer> helpAnswers = helpOption.getHelpAnswers(question);
                     helpOption.showAnswers(helpAnswers);
-                    question.setAnswers(helpAnswers.stream().map(HelpAnswer::getAnswer).collect(Collectors.toList()));
+                    question.setAnswers(helpAnswers.stream().map(helpAnswer -> helpAnswer.getAnswer()).collect(Collectors.toList()));
                     isInvalidSequence = true;
                     continue;
                 }
 
                 try {
-                    toNext = validateAnswers(question.getAnswers(), answerSequence);
+                    isCorrect = validateAnswers(question.getAnswers(), answerSequence);
                 } catch (InvalidSequenceException e) {
                     isInvalidSequence = true;
                     writeMessage(e.getMessage() + ", Mai incercati o data!");
@@ -67,7 +67,7 @@ public class Game {
 
             }while(isInvalidSequence);
 
-            if (toNext) {
+            if (isCorrect) {
                 score += question.getScore();
                 writeMessage("Raspuns corect! Scorul curent: " + score);
                 level++;
@@ -85,7 +85,7 @@ public class Game {
         return answerSequence;
     }
 
-    private static boolean isHelp(String answerSequence, List<HelpOption> helpOptions) {
+    private static boolean isEnteredHelpOption(String answerSequence, List<HelpOption> helpOptions) {
         return helpOptions.stream().filter(helpOption -> !helpOption.isUsed()).anyMatch(helpOption -> helpOption.getSequence().equals(answerSequence));
 
     }
